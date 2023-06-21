@@ -1,12 +1,10 @@
 package jt.projects.gbschool.repository
 
 import jt.projects.gbschool.model.Lesson
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.single
+import kotlinx.coroutines.flow.onStart
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -37,7 +35,7 @@ class LessonsFakeRepo : ILessonsRepo {
                     isOpenIn = true
                 )
             )
-        return flowOf(lessons)
+        return flowOf(lessons).onStart { delay(500L) }
     }
 
 }
