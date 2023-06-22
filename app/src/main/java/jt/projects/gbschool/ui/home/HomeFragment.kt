@@ -14,7 +14,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import jt.projects.gbschool.databinding.FragmentHomeBinding
 import jt.projects.gbschool.model.Lesson
-import jt.projects.gbschool.ui.classes.ClassesViewModel
 import jt.projects.gbschool.utils.CURRENT_TIME
 import jt.projects.gbschool.utils.showSnackbar
 import kotlinx.coroutines.launch
@@ -25,7 +24,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: ClassesViewModel by inject()
+    private val viewModel: HomeViewModel by inject()
     private val classesAdapter by lazy { ClassesHomeAdapter(::onItemClicked) }
 
     private fun onItemClicked(data: Lesson) {
@@ -52,7 +51,8 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initUi()
-        observeViewModelData()
+        observeTimerData()
+        observeLessonsData()
         observeLoadingVisible()
     }
 
@@ -62,7 +62,26 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun observeViewModelData() {
+    private fun observeTimerData() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.resultTimer.collect {
+                    with(binding.homeSection1) {
+                        tvTimeForExams.text = it
+                        tvHour1.text = it[0].toString()
+                        tvHour2.text = it[1].toString()
+                        tvMin1.text = it[3].toString()
+                        tvMin2.text = it[4].toString()
+                        tvSec1.text = it[6].toString()
+                        tvSec2.text = it[7].toString()
+                    }
+
+                }
+            }
+        }
+    }
+
+    private fun observeLessonsData() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel

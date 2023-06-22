@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 
-class ClassesViewModel(private val interactor: LessonInteractor) : ViewModel() {
+class ClassesViewModel(private val lessonInteractor: LessonInteractor) : ViewModel() {
 
     private var job: Job? = null
 
@@ -32,7 +32,7 @@ class ClassesViewModel(private val interactor: LessonInteractor) : ViewModel() {
         _isLoading.tryEmit(true)
 
         job = viewModelScope.launch {
-            interactor.getLessonsByDate(date)
+            lessonInteractor.getLessonsByDate(date)
                 .onEach {
                     _resultRecycler.tryEmit(it)
                     _isLoading.tryEmit(false)
