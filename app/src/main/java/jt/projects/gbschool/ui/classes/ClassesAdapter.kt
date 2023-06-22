@@ -3,6 +3,7 @@ package jt.projects.gbschool.ui.classes
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import jt.projects.gbschool.model.Lesson
+import jt.projects.gbschool.ui.viewholders.AdditionalLessonViewHolder
 import jt.projects.gbschool.ui.viewholders.LessonViewHolder
 
 class ClassesAdapter(
@@ -33,12 +34,15 @@ class ClassesAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
             LESSON -> LessonViewHolder(parent)
-            ADDITIONAL_LESSON -> LessonViewHolder(parent)
+            ADDITIONAL_LESSON -> AdditionalLessonViewHolder(parent)
             else -> throw IllegalStateException()
         }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is LessonViewHolder) {
+            holder.bind(data[position], onItemClicked)
+        }
+        if (holder is AdditionalLessonViewHolder) {
             holder.bind(data[position], onItemClicked)
         }
     }

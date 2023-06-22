@@ -21,6 +21,14 @@ class LessonsFakeRepo : ILessonsRepo {
                     image = "https://static.tildacdn.com/tild3364-3461-4464-b561-613032346536/_.png"
                 ),
                 Lesson(
+                    timeStart = LocalTime.of(11, 50),
+                    timeEnd = LocalTime.of(13, 0),
+                    name = "GermanLanguage",
+                    teacher = "Mrs. Keneth",
+                    isOpenIn = true,
+                    image = "https://static.tildacdn.com/tild3364-3461-4464-b561-613032346536/_.png"
+                ),
+                Lesson(
                     timeStart = LocalTime.of(10, 0),
                     timeEnd = LocalTime.of(11, 35),
                     name = "Physical Education",
