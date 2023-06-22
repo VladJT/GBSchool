@@ -80,7 +80,7 @@ class ClassesFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.isLoading.collect {
-                    binding.loadingFrameLayout.isVisible = it
+                    binding.loadingFrameLayout.root.isVisible = it
                 }
             }
         }

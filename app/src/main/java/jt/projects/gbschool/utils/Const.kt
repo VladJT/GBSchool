@@ -4,7 +4,7 @@ import java.time.LocalDate
 import java.time.LocalTime
 
 /**
- * LOGS
+ * USER SETTINGS
  */
 const val USER_NAME = "Mike"
 val CURRENT_DATE = LocalDate.now()

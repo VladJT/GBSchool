@@ -12,33 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/gLine"
-            layout="@layout/timeline"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/cardView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/guideline4"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="8:00 - 8:45" />
-
-
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="10dp"
             android:backgroundTint="?attr/colorSurfaceContainer"
             app:cardCornerRadius="18dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -75,15 +54,26 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="History" />
 
+                <ImageView
+                    android:id="@+id/iv_clock"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:backgroundTint="@color/transparent"
+                    android:src="@android:drawable/ic_menu_recent_history"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_image"
+                    app:layout_constraintStart_toStartOf="@+id/tv_lesson_name"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_lesson_name"
+                    app:tint="@color/white" />
+
                 <TextView
-                    android:id="@+id/tv_teacher"
+                    android:id="@+id/tv_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/iv_image"
-                    app:layout_constraintStart_toEndOf="@+id/iv_image"
-                    tools:text="Teacher: Mrs.Thomas" />
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_clock"
+                    app:layout_constraintStart_toEndOf="@+id/iv_clock"
+                    app:layout_constraintTop_toTopOf="@+id/iv_clock"
+                    tools:text="08:00 - 08:45" />
 
                 <include
                     android:id="@+id/btnOpenIn"
@@ -101,7 +91,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_begin="269dp" />
+                    app:layout_constraintGuide_begin="323dp" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -113,14 +103,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="34dp" />
+            app:layout_constraintGuide_begin="10dp" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="60dp" />
+            app:layout_constraintGuide_begin="16dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

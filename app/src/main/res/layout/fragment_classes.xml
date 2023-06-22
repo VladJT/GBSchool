@@ -29,16 +29,15 @@
         app:layout_constraintTop_toBottomOf="@id/tv_today_info"
         tools:listitem="@layout/item_lesson" />
 
-    <FrameLayout
+    <include
         android:id="@+id/loading_frame_layout"
+        layout="@layout/loading_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <include layout="@layout/loading_layout" />
-    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,6 +6,8 @@ import jt.projects.gbschool.interactors.LessonInteractor
 import jt.projects.gbschool.repository.ILessonsRepo
 import jt.projects.gbschool.repository.LessonsFakeRepo
 import jt.projects.gbschool.ui.classes.ClassesViewModel
+import jt.projects.gbschool.ui.home.HomeFragment
+import jt.projects.gbschool.ui.home.HomeViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -27,5 +29,6 @@ val repoModule = module {
 
 val vmModule = module {
 
+    viewModel { HomeViewModel(lessonInteractor = get()) }
     viewModel { ClassesViewModel(interactor = get()) }
 }
