@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
 import jt.projects.gbschool.databinding.FragmentClassesBinding
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -19,13 +20,13 @@ class ClassesFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: ClassesViewModel by inject()
+    private val classesAdapter by lazy { ClassesAdapter(viewModel::onItemClicked) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentClassesBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -37,18 +38,17 @@ class ClassesFragment : Fragment() {
     }
 
     private fun initUi() {
-//        with(binding.reminderRecyclerview) {
-//            layoutManager = LinearLayoutManager(requireContext())
-//            adapter = reminderAdapter
-//        }
+        with(binding.rvClassesList) {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = classesAdapter
+        }
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel
                     .resultRecycler
                     .collect {
-                        //    reminderAdapter.setData(it)
-                        val i = it
+                        classesAdapter.setData(it)
                     }
             }
         }

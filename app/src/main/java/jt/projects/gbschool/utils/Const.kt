@@ -8,7 +8,7 @@ import java.time.LocalTime
  */
 const val USER_NAME = "Mike"
 val CURRENT_DATE = LocalDate.now()
-val CURRENT_TIME = LocalTime.of(10, 0)
+val CURRENT_TIME = LocalTime.of(9, 35)
 
 
 /**

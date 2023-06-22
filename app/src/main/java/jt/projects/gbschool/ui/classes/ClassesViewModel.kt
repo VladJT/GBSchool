@@ -35,10 +35,6 @@ class ClassesViewModel(private val interactor: LessonInteractor) : ViewModel() {
 
         job = viewModelScope.launch {
             interactor.getLessonsByDate(date)
-                .map {
-                    val i = it
-                    it
-                }
                 .onEach {
                     _resultRecycler.tryEmit(it)
                     _isLoading.tryEmit(false)

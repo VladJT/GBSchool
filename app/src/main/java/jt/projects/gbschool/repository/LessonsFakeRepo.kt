@@ -17,7 +17,8 @@ class LessonsFakeRepo : ILessonsRepo {
                     timeStart = LocalTime.of(9, 0),
                     timeEnd = LocalTime.of(9, 45),
                     name = "Literature",
-                    teacher = "Mrs. Barros"
+                    teacher = "Mrs. Barros",
+                    image = "https://static.tildacdn.com/tild3364-3461-4464-b561-613032346536/_.png"
                 ),
                 Lesson(
                     timeStart = LocalTime.of(10, 0),
@@ -25,14 +26,16 @@ class LessonsFakeRepo : ILessonsRepo {
                     name = "Physical Education",
                     teacher = "Mrs. Barros",
                     description = "Intensive preparation for the Junior World Championship in Los Angeles.",
-                    isAdditional = true
+                    isAdditional = true,
+                    image = "https://png.pngtree.com/png-vector/20191027/ourlarge/pngtree-basketball-icon-set-of-basketball-balls-isolated-on-white-background-png-image_1855711.jpg"
                 ),
                 Lesson(
                     timeStart = LocalTime.of(8, 0),
                     timeEnd = LocalTime.of(8, 45),
                     name = "History",
                     teacher = "Mrs. Thomas",
-                    isOpenIn = true
+                    isOpenIn = true,
+                    image = "https://static.vecteezy.com/system/resources/previews/000/424/166/original/bow-icon-vector-illustration.jpg"
                 )
             )
         return flowOf(lessons).onStart { delay(500L) }
