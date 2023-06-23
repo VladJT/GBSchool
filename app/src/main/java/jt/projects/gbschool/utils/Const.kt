@@ -9,7 +9,7 @@ import java.time.LocalTime
  */
 const val USER_NAME = "Mike"
 val CURRENT_DATE = LocalDate.now()
-val CURRENT_TIME = LocalTime.now()//.of(9, 35)
+val CURRENT_TIME = LocalTime.now()//of(11, 50)
 val CURRENT_DATE_TIME = LocalDateTime.of(CURRENT_DATE, CURRENT_TIME)
 val EXAMS_DATE = LocalDateTime.of(CURRENT_DATE.plusDays(3), LocalTime.of(13, 30))
 

@@ -29,7 +29,7 @@ class LessonViewHolder private constructor(
                     error(R.drawable.baseline_image_not_supported_24)
                 }
 
-                if (CURRENT_TIME in data.timeStart..data.timeEnd) {
+                if (data.isCurrent) {
                     gLine.bigPoint.isVisible = true
                 }
 

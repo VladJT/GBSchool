@@ -14,7 +14,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import jt.projects.gbschool.databinding.FragmentHomeBinding
 import jt.projects.gbschool.model.Lesson
-import jt.projects.gbschool.utils.CURRENT_TIME
 import jt.projects.gbschool.utils.showSnackbar
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -93,7 +92,7 @@ class HomeFragment : Fragment() {
                     classesAdapter.setData(it)
 
                     val curLessonIndex = it.indexOf(it.findLast { lesson ->
-                        CURRENT_TIME in lesson.timeStart..lesson.timeEnd
+                        lesson.isCurrent
                     })
                     if (curLessonIndex != -1) {
                         binding.homeSection2.rvLessonsList.scrollToPosition(curLessonIndex)

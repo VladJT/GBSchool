@@ -71,6 +71,13 @@ class ClassesFragment : Fragment() {
                     .resultRecycler
                     .collect {
                         classesAdapter.setData(it)
+
+                        val curLessonIndex = it.indexOf(it.findLast { lesson ->
+                            lesson.isCurrent
+                        })
+                        if (curLessonIndex != -1) {
+                            binding.rvClassesList.scrollToPosition(curLessonIndex)
+                        }
                     }
             }
         }

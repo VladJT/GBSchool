@@ -12,5 +12,6 @@ data class Lesson(
     val description: String = "",
     val image: String = "https://thumbs.dreamstime.com/b/corel-pictogramm-141634577.jpg",
     val isOpenIn: Boolean = false,
-    val isAdditional: Boolean = false
+    val isAdditional: Boolean = false,
+    var isCurrent: Boolean = false
 )
