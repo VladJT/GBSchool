@@ -30,7 +30,7 @@ class HomeworkFakeRepo : IHomeworkRepo {
             ),
         )
         return flow {
-            delay(500)
+            delay(1500)
             emit(hw)
         }
     }

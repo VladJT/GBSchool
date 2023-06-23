@@ -13,7 +13,6 @@
         android:layout_height="match_parent"
         android:visibility="gone" />
 
-
     <include
         android:id="@+id/home_section_1"
         layout="@layout/home_section_1"

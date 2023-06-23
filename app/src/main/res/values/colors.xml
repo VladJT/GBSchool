@@ -10,4 +10,5 @@
 
     <color name="transparent">#00000000</color>
     <color name="green_line">#68ED6D</color>
+    <color name="red">#A02C2C</color>
 </resources>

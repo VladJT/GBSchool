@@ -24,8 +24,6 @@ class HomeViewModel(
     private val homeworkInteractor: HomeworkInteractor
 ) : ViewModel() {
 
-    private var job: Job? = null
-
     // секция 1 - таймер
     private val _resultTimer = MutableStateFlow<String>("00:00:00")
     val resultTimer get() = _resultTimer.asStateFlow()
@@ -33,18 +31,21 @@ class HomeViewModel(
     // секция 2 - уроки
     private val _lessonRecycler = MutableStateFlow<List<Lesson>>(listOf())
     val lessonRecycler get() = _lessonRecycler.asStateFlow()
+    private var jobLessons: Job? = null
+    private val _isLoadingLessons = MutableStateFlow(true)
+    val isLoadingLessons get() = _isLoadingLessons.asStateFlow()
 
     // секция 3 - домашние задания
     private val _homeworkRecycler = MutableStateFlow<List<Homework>>(listOf())
     val homeworkRecycler get() = _homeworkRecycler.asStateFlow()
-
-    // статус загрузки
-    private val _isLoading = MutableStateFlow(true)
-    val isLoading get() = _isLoading.asStateFlow()
+    private var jobHomework: Job? = null
+    private val _isLoadingHomework = MutableStateFlow(true)
+    val isLoadingHomework get() = _isLoadingHomework.asStateFlow()
 
     init {
         initTimer()
-        loadData(CURRENT_DATE)
+        loadLessons(CURRENT_DATE)
+        loadHomework(CURRENT_DATE)
     }
 
     private fun initTimer() {
@@ -87,21 +88,26 @@ class HomeViewModel(
         }.start()
     }
 
-    private fun loadData(date: LocalDate) {
-        job?.cancel()
-        _isLoading.tryEmit(true)
-
-        job = viewModelScope.launch {
+    private fun loadLessons(date: LocalDate) {
+        jobLessons?.cancel()
+        jobLessons = viewModelScope.launch {
+            _isLoadingLessons.tryEmit(true)
             lessonInteractor.getLessonsByDate(date)
                 .onEach {
                     _lessonRecycler.tryEmit(it)
-                //    _isLoading.tryEmit(false)
+                    _isLoadingLessons.tryEmit(false)
                 }.collect()
+        }
+    }
 
+    private fun loadHomework(date: LocalDate) {
+        jobHomework?.cancel()
+        jobHomework = viewModelScope.launch {
+            _isLoadingHomework.tryEmit(true)
             homeworkInteractor.getHomeworkByDate(date)
                 .onEach {
                     _homeworkRecycler.tryEmit(it)
-                    _isLoading.tryEmit(false)
+                    _isLoadingHomework.tryEmit(false)
                 }.collect()
         }
     }

@@ -89,16 +89,16 @@ class HomeFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.lessonRecycler.collect {
-                        binding.homeSection2.tvClassesCount.text = "${it.size} classes today"
-                        classesAdapter.setData(it)
+                    binding.homeSection2.tvClassesCount.text = "${it.size} classes today"
+                    classesAdapter.setData(it)
 
-                        val curLessonIndex = it.indexOf(it.findLast { lesson ->
-                            CURRENT_TIME in lesson.timeStart..lesson.timeEnd
-                        })
-                        if (curLessonIndex != -1) {
-                            binding.homeSection2.rvLessonsList.scrollToPosition(curLessonIndex)
-                        }
+                    val curLessonIndex = it.indexOf(it.findLast { lesson ->
+                        CURRENT_TIME in lesson.timeStart..lesson.timeEnd
+                    })
+                    if (curLessonIndex != -1) {
+                        binding.homeSection2.rvLessonsList.scrollToPosition(curLessonIndex)
                     }
+                }
             }
         }
     }
@@ -107,8 +107,8 @@ class HomeFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.homeworkRecycler.collect {
-                        homeworkAdapter.setData(it)
-                    }
+                    homeworkAdapter.setData(it)
+                }
             }
         }
     }
@@ -116,8 +116,16 @@ class HomeFragment : Fragment() {
     private fun observeLoadingVisible() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.isLoading.collect {
-                    binding.loadingFrameLayout.root.isVisible = it
+                viewModel.isLoadingLessons.collect {
+                    binding.homeSection2.loadingFrameLayout.root.isVisible = it
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.isLoadingHomework.collect {
+                    binding.homeSection3.loadingFrameLayout.root.isVisible = it
                 }
             }
         }
