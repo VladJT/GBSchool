@@ -3,7 +3,9 @@ package jt.projects.gbschool.ui.home
 import android.os.CountDownTimer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import jt.projects.gbschool.interactors.HomeworkInteractor
 import jt.projects.gbschool.interactors.LessonInteractor
+import jt.projects.gbschool.model.Homework
 import jt.projects.gbschool.model.Lesson
 import jt.projects.gbschool.utils.CURRENT_DATE
 import jt.projects.gbschool.utils.CURRENT_DATE_TIME
@@ -17,16 +19,26 @@ import kotlinx.coroutines.launch
 import java.time.Duration
 import java.time.LocalDate
 
-class HomeViewModel(private val lessonInteractor: LessonInteractor) : ViewModel() {
+class HomeViewModel(
+    private val lessonInteractor: LessonInteractor,
+    private val homeworkInteractor: HomeworkInteractor
+) : ViewModel() {
 
     private var job: Job? = null
 
-    private val _resultRecycler = MutableStateFlow<List<Lesson>>(listOf())
-    val resultRecycler get() = _resultRecycler.asStateFlow()
-
+    // секция 1 - таймер
     private val _resultTimer = MutableStateFlow<String>("00:00:00")
     val resultTimer get() = _resultTimer.asStateFlow()
 
+    // секция 2 - уроки
+    private val _lessonRecycler = MutableStateFlow<List<Lesson>>(listOf())
+    val lessonRecycler get() = _lessonRecycler.asStateFlow()
+
+    // секция 3 - домашние задания
+    private val _homeworkRecycler = MutableStateFlow<List<Homework>>(listOf())
+    val homeworkRecycler get() = _homeworkRecycler.asStateFlow()
+
+    // статус загрузки
     private val _isLoading = MutableStateFlow(true)
     val isLoading get() = _isLoading.asStateFlow()
 
@@ -82,7 +94,13 @@ class HomeViewModel(private val lessonInteractor: LessonInteractor) : ViewModel(
         job = viewModelScope.launch {
             lessonInteractor.getLessonsByDate(date)
                 .onEach {
-                    _resultRecycler.tryEmit(it)
+                    _lessonRecycler.tryEmit(it)
+                //    _isLoading.tryEmit(false)
+                }.collect()
+
+            homeworkInteractor.getHomeworkByDate(date)
+                .onEach {
+                    _homeworkRecycler.tryEmit(it)
                     _isLoading.tryEmit(false)
                 }.collect()
         }

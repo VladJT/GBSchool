@@ -2,7 +2,10 @@ package jt.projects.gbschool.di
 
 
 import jt.projects.gbschool.App
+import jt.projects.gbschool.interactors.HomeworkInteractor
 import jt.projects.gbschool.interactors.LessonInteractor
+import jt.projects.gbschool.repository.HomeworkFakeRepo
+import jt.projects.gbschool.repository.IHomeworkRepo
 import jt.projects.gbschool.repository.ILessonsRepo
 import jt.projects.gbschool.repository.LessonsFakeRepo
 import jt.projects.gbschool.ui.classes.ClassesViewModel
@@ -19,15 +22,17 @@ val appModule = module {
 
 val repoModule = module {
     // interactors
-    single<LessonInteractor> { LessonInteractor(repo = get<ILessonsRepo>()) }
+    single<LessonInteractor> { LessonInteractor(repo = get()) }
+    single<HomeworkInteractor> { HomeworkInteractor(repo = get()) }
 
     // data sources
     single<ILessonsRepo> { LessonsFakeRepo() }
+    single<IHomeworkRepo> { HomeworkFakeRepo() }
 }
 
 
 val vmModule = module {
 
-    viewModel { HomeViewModel(lessonInteractor = get()) }
+    viewModel { HomeViewModel(lessonInteractor = get(), homeworkInteractor = get()) }
     viewModel { ClassesViewModel(lessonInteractor = get()) }
 }

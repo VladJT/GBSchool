@@ -26,6 +26,7 @@ class HomeFragment : Fragment() {
 
     private val viewModel: HomeViewModel by inject()
     private val classesAdapter by lazy { ClassesHomeAdapter(::onItemClicked) }
+    private val homeworkAdapter by lazy { HomeworkAdapter() }
 
     private fun onItemClicked(data: Lesson) {
         try {
@@ -40,9 +41,7 @@ class HomeFragment : Fragment() {
 
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
@@ -53,12 +52,17 @@ class HomeFragment : Fragment() {
         initUi()
         observeTimerData()
         observeLessonsData()
+        observeHomeworkData()
         observeLoadingVisible()
     }
 
     private fun initUi() {
         with(binding.homeSection2.rvLessonsList) {
             adapter = classesAdapter
+        }
+
+        with(binding.homeSection3.rvHomeworkList) {
+            adapter = homeworkAdapter
         }
     }
 
@@ -84,9 +88,7 @@ class HomeFragment : Fragment() {
     private fun observeLessonsData() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel
-                    .resultRecycler
-                    .collect {
+                viewModel.lessonRecycler.collect {
                         binding.homeSection2.tvClassesCount.text = "${it.size} classes today"
                         classesAdapter.setData(it)
 
@@ -96,6 +98,16 @@ class HomeFragment : Fragment() {
                         if (curLessonIndex != -1) {
                             binding.homeSection2.rvLessonsList.scrollToPosition(curLessonIndex)
                         }
+                    }
+            }
+        }
+    }
+
+    private fun observeHomeworkData() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.homeworkRecycler.collect {
+                        homeworkAdapter.setData(it)
                     }
             }
         }
