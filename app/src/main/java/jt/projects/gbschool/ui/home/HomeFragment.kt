@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import dagger.android.AndroidInjection
+import dagger.android.support.DaggerFragment
 import jt.projects.gbschool.App
 import jt.projects.gbschool.databinding.FragmentHomeBinding
 import jt.projects.gbschool.model.Lesson
@@ -20,7 +22,7 @@ import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import javax.inject.Inject
 
-class HomeFragment : Fragment() {
+class HomeFragment : DaggerFragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -44,7 +46,7 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        App.instance.appComponent.inject(this)
+        //App.instance.appComponent.inject(this)
     }
 
     override fun onCreateView(

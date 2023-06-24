@@ -13,6 +13,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.android.AndroidInjection
+import dagger.android.support.DaggerFragment
 import jt.projects.gbschool.App
 import jt.projects.gbschool.databinding.FragmentClassesBinding
 import jt.projects.gbschool.model.Lesson
@@ -21,7 +23,7 @@ import jt.projects.gbschool.utils.showSnackbar
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class ClassesFragment : Fragment() {
+class ClassesFragment : DaggerFragment() {
 
     private var _binding: FragmentClassesBinding? = null
     private val binding get() = _binding!!
@@ -44,7 +46,7 @@ class ClassesFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        App.instance.appComponent.inject(this)
+    //    App.instance.appComponent.inject(this)
     }
 
     override fun onCreateView(

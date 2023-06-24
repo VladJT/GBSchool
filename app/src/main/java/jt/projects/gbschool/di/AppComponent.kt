@@ -1,20 +1,28 @@
 package jt.projects.gbschool.di
 
+import android.app.Application
+import dagger.BindsInstance
 import dagger.Component
-import jt.projects.gbschool.ui.MainActivity
-import jt.projects.gbschool.ui.classes.ClassesFragment
-import jt.projects.gbschool.ui.classes.ClassesViewModel
-import jt.projects.gbschool.ui.home.HomeFragment
-import jt.projects.gbschool.ui.home.HomeViewModel
+import dagger.android.support.AndroidSupportInjectionModule
+import jt.projects.gbschool.App
 import javax.inject.Singleton
+
 
 // если в компоненте есть хотя бы 1 Singleton, то и компонент обязаны объявить как Singleton
 @Singleton
 @Component(
-    modules = [AppModule::class, MainModule::class]
+    modules = [AppModule::class, MainModule::class, ActivityModule::class, FragmentModule::class, AndroidSupportInjectionModule::class]
 )
 interface AppComponent {
-    fun inject(mainActivity: MainActivity)
-    fun inject(homeFragment: HomeFragment)
-    fun inject(classesFragment: ClassesFragment)
+    // Этот билдер мы вызовем из класса App
+    @Component.Builder
+    interface Builder {
+        @BindsInstance
+        fun application(application: Application): Builder
+        fun appModule(appProviderModule: AppModule): Builder
+        fun build(): AppComponent
+    }
+
+    // Наш кастомный Application
+    fun inject(app: App)
 }
