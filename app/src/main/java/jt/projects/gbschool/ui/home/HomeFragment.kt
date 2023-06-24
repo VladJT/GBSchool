@@ -18,17 +18,16 @@ import jt.projects.gbschool.model.Lesson
 import jt.projects.gbschool.utils.showSnackbar
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
+import javax.inject.Inject
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: HomeViewModel by lazy {
-        HomeViewModel().apply {
-            App.instance.appComponent.inject(this)
-        }
-    }
+    @Inject
+    lateinit var viewModel: HomeViewModel
+
     private val classesAdapter by lazy { ClassesHomeAdapter(::onItemClicked) }
     private val homeworkAdapter by lazy { HomeworkAdapter() }
 
@@ -43,6 +42,10 @@ class HomeFragment : Fragment() {
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        App.instance.appComponent.inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?

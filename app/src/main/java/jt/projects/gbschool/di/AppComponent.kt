@@ -2,7 +2,9 @@ package jt.projects.gbschool.di
 
 import dagger.Component
 import jt.projects.gbschool.ui.MainActivity
+import jt.projects.gbschool.ui.classes.ClassesFragment
 import jt.projects.gbschool.ui.classes.ClassesViewModel
+import jt.projects.gbschool.ui.home.HomeFragment
 import jt.projects.gbschool.ui.home.HomeViewModel
 import javax.inject.Singleton
 
@@ -12,9 +14,7 @@ import javax.inject.Singleton
     modules = [AppModule::class, MainModule::class]
 )
 interface AppComponent {
-
     fun inject(mainActivity: MainActivity)
-    fun inject(classesViewModel: ClassesViewModel)
-    fun inject(homeViewModel: HomeViewModel)
-
+    fun inject(homeFragment: HomeFragment)
+    fun inject(classesFragment: ClassesFragment)
 }

@@ -19,17 +19,16 @@ import jt.projects.gbschool.model.Lesson
 import jt.projects.gbschool.utils.CURRENT_DATE
 import jt.projects.gbschool.utils.showSnackbar
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class ClassesFragment : Fragment() {
 
     private var _binding: FragmentClassesBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: ClassesViewModel by lazy {
-        ClassesViewModel().apply {
-            App.instance.appComponent.inject(this)
-        }
-    }
+    @Inject
+    lateinit var viewModel: ClassesViewModel
+
     private val classesAdapter by lazy { ClassesAdapter(::onItemClicked) }
 
     private fun onItemClicked(data: Lesson) {
@@ -41,6 +40,11 @@ class ClassesFragment : Fragment() {
         } catch (e: ActivityNotFoundException) {
             showSnackbar(e.message.toString())
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        App.instance.appComponent.inject(this)
     }
 
     override fun onCreateView(
