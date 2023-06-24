@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import jt.projects.gbschool.App
 import jt.projects.gbschool.databinding.FragmentHomeBinding
 import jt.projects.gbschool.model.Lesson
 import jt.projects.gbschool.utils.showSnackbar
@@ -23,7 +24,11 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: HomeViewModel by inject()
+    private val viewModel: HomeViewModel by lazy {
+        HomeViewModel().apply {
+            App.instance.appComponent.inject(this)
+        }
+    }
     private val classesAdapter by lazy { ClassesHomeAdapter(::onItemClicked) }
     private val homeworkAdapter by lazy { HomeworkAdapter() }
 

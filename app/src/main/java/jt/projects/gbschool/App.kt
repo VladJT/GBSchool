@@ -3,11 +3,9 @@ package jt.projects.gbschool
 import android.app.Application
 import android.content.Context
 import android.content.res.Resources
-import jt.projects.gbschool.di.appModule
-import jt.projects.gbschool.di.repoModule
-import jt.projects.gbschool.di.vmModule
-import org.koin.android.ext.koin.androidContext
-import org.koin.core.context.startKoin
+import jt.projects.gbschool.di.AppComponent
+import jt.projects.gbschool.di.AppModule
+import jt.projects.gbschool.di.DaggerAppComponent
 
 class App : Application() {
 
@@ -21,19 +19,26 @@ class App : Application() {
         fun getContext(): Context {
             return mContext!!
         }
+
+        lateinit var instance: App
     }
+
+    lateinit var appComponent: AppComponent
 
     override fun onCreate() {
         super.onCreate()
         mContext = applicationContext
 
-        startKoin {
-            androidContext(this@App)
-            modules(
-                listOf(
-                    appModule, repoModule, vmModule
-                )
-            )
-        }
+        instance = this
+        appComponent = DaggerAppComponent.builder().appModule(AppModule(this)).build()
+
+//        startKoin {
+//            androidContext(this@App)
+//            modules(
+//                listOf(
+//                    appModule, repoModule, vmModule
+//                )
+//            )
+//        }
     }
 }

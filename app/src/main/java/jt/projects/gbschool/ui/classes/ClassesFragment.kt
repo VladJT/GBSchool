@@ -13,19 +13,23 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import jt.projects.gbschool.App
 import jt.projects.gbschool.databinding.FragmentClassesBinding
 import jt.projects.gbschool.model.Lesson
 import jt.projects.gbschool.utils.CURRENT_DATE
 import jt.projects.gbschool.utils.showSnackbar
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
 
 class ClassesFragment : Fragment() {
 
     private var _binding: FragmentClassesBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: ClassesViewModel by inject()
+    private val viewModel: ClassesViewModel by lazy {
+        ClassesViewModel().apply {
+            App.instance.appComponent.inject(this)
+        }
+    }
     private val classesAdapter by lazy { ClassesAdapter(::onItemClicked) }
 
     private fun onItemClicked(data: Lesson) {

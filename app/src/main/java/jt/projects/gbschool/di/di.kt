@@ -14,25 +14,25 @@ import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-val appModule = module {
-
-    // контекст приложения
-    single<App> { androidApplication().applicationContext as App }
-}
-
-val repoModule = module {
-    // interactors
-    single<LessonInteractor> { LessonInteractor(repo = get()) }
-    single<HomeworkInteractor> { HomeworkInteractor(repo = get()) }
-
-    // data sources
-    single<ILessonsRepo> { LessonsFakeRepo() }
-    single<IHomeworkRepo> { HomeworkFakeRepo() }
-}
-
-
-val vmModule = module {
-
-    viewModel { HomeViewModel(lessonInteractor = get(), homeworkInteractor = get()) }
-    viewModel { ClassesViewModel(lessonInteractor = get()) }
-}
+//val appModule = module {
+//
+//    // контекст приложения
+//    single<App> { androidApplication().applicationContext as App }
+//}
+//
+//val repoModule = module {
+//    // interactors
+//    single<LessonInteractor> { LessonInteractor(repo = get()) }
+//    single<HomeworkInteractor> { HomeworkInteractor(repo = get()) }
+//
+//    // data sources
+//    single<ILessonsRepo> { LessonsFakeRepo() }
+//    single<IHomeworkRepo> { HomeworkFakeRepo() }
+//}
+//
+//
+//val vmModule = module {
+//
+//    viewModel { HomeViewModel(lessonInteractor = get(), homeworkInteractor = get()) }
+//    viewModel { ClassesViewModel(lessonInteractor = get()) }
+//}

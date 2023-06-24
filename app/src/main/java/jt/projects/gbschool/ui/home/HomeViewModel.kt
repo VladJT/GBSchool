@@ -7,6 +7,9 @@ import jt.projects.gbschool.interactors.HomeworkInteractor
 import jt.projects.gbschool.interactors.LessonInteractor
 import jt.projects.gbschool.model.Homework
 import jt.projects.gbschool.model.Lesson
+import jt.projects.gbschool.repository.IHomeworkRepo
+import jt.projects.gbschool.repository.ILessonsRepo
+import jt.projects.gbschool.repository.LessonsFakeRepo
 import jt.projects.gbschool.utils.CURRENT_DATE
 import jt.projects.gbschool.utils.CURRENT_DATE_TIME
 import jt.projects.gbschool.utils.EXAMS_DATE
@@ -18,11 +21,18 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import java.time.Duration
 import java.time.LocalDate
+import javax.inject.Inject
 
-class HomeViewModel(
-    private val lessonInteractor: LessonInteractor,
-    private val homeworkInteractor: HomeworkInteractor
-) : ViewModel() {
+class HomeViewModel() : ViewModel() {
+
+    @Inject
+    lateinit var lessonsRepo: ILessonsRepo
+
+    @Inject
+    lateinit var homeworkRepo: IHomeworkRepo
+
+    private val lessonInteractor: LessonInteractor by lazy { LessonInteractor(lessonsRepo)}
+    private val homeworkInteractor: HomeworkInteractor by lazy {  HomeworkInteractor(homeworkRepo)}
 
     // секция 1 - таймер
     private val _resultTimer = MutableStateFlow<String>("00:00:00")

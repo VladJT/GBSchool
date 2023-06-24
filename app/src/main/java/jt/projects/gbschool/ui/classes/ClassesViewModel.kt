@@ -2,8 +2,11 @@ package jt.projects.gbschool.ui.classes
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import jt.projects.gbschool.interactors.HomeworkInteractor
 import jt.projects.gbschool.interactors.LessonInteractor
 import jt.projects.gbschool.model.Lesson
+import jt.projects.gbschool.repository.IHomeworkRepo
+import jt.projects.gbschool.repository.ILessonsRepo
 import jt.projects.gbschool.utils.CURRENT_DATE
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,8 +15,14 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import java.time.LocalDate
+import javax.inject.Inject
 
-class ClassesViewModel(private val lessonInteractor: LessonInteractor) : ViewModel() {
+class ClassesViewModel() : ViewModel() {
+
+    @Inject
+    lateinit var lessonsRepo: ILessonsRepo
+
+    private val lessonInteractor: LessonInteractor by lazy { LessonInteractor(lessonsRepo)}
 
     private var job: Job? = null
 
