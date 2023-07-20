@@ -28,6 +28,12 @@ class HomeworkFakeRepo : IHomeworkRepo {
                 description = "Write an essay on theme: London",
                 image = "https://static.tildacdn.com/tild3364-3461-4464-b561-613032346536/_.png"
             ),
+            Homework(
+                date = LocalDate.now().plusDays(3),
+                name = "TEST🐈‍⬛⚡",
+                description = "Test it",
+                image = "https://www.tambov.gov.ru/assets/images/press/obrazovanie/nauka(1).jpg"
+            )
         )
         return flow {
             delay(1500)

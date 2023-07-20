@@ -27,9 +27,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvHomeworkList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="250dp"
         android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layoutManager="com.google.android.material.carousel.CarouselLayoutManager"
         tools:listitem="@layout/item_homework" />
 
 </LinearLayout>

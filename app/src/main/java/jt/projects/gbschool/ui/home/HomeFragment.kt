@@ -8,18 +8,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import dagger.android.AndroidInjection
+import com.google.android.material.carousel.CarouselLayoutManager
+import com.google.android.material.carousel.CarouselStrategy
 import dagger.android.support.DaggerFragment
-import jt.projects.gbschool.App
 import jt.projects.gbschool.databinding.FragmentHomeBinding
 import jt.projects.gbschool.model.Lesson
 import jt.projects.gbschool.utils.showSnackbar
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
 import javax.inject.Inject
 
 class HomeFragment : DaggerFragment() {
@@ -71,6 +69,8 @@ class HomeFragment : DaggerFragment() {
         }
 
         with(binding.homeSection3.rvHomeworkList) {
+            val cm = CarouselLayoutManager()
+            layoutManager = cm
             adapter = homeworkAdapter
         }
     }

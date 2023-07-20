@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.carousel.MaskableFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/carousel_item_container"
     android:layout_width="300dp"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="4dp"
-    android:backgroundTint="?attr/colorSurface">
+    android:layout_marginStart="4dp"
+    android:layout_marginEnd="4dp"
+    android:backgroundTint="?attr/colorSurface"
+    android:foreground="?attr/selectableItemBackground"
+    app:shapeAppearance="?attr/shapeAppearanceCornerExtraLarge">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -68,8 +74,8 @@
                     android:id="@+id/tv_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
                     android:paddingStart="4dp"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/iv_clock"
                     app:layout_constraintStart_toEndOf="@+id/iv_clock"
                     app:layout_constraintTop_toTopOf="@+id/iv_clock"
@@ -123,4 +129,4 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.carousel.MaskableFrameLayout>
